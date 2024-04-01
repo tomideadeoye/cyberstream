@@ -39,7 +39,7 @@
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^1.6.8",
     "cors": "^2.8.5",
-    "cyber-stream-sdk": "^1.0.13",
+    "cyber-stream-sdk": "^1.0.14",
     "electron-is-dev": "^3.0.1",
     "express": "^4.19.2",
     "react": "^18.2.0",
