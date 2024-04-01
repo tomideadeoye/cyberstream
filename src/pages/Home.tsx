@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
+import TomideStreams from "cyber-stream-sdk";
+import { SkeletonCard } from "@/components/ui/skeleton";
 import {
   Card,
   CardContent,
@@ -7,33 +9,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import TomideStreams from "cyber-stream-sdk";
-import { Star, View } from "lucide-react";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { Button } from "@/components/ui/button";
+import { View } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import Counter from "@/components/Counter";
-import { MovieDescription } from "cyber-stream-sdk/dist/movies/types";
+import SearchMoviesBar from "@/components/SearchMoviesBar";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchMovies } from "@/features/movies/movieSlice";
+import { AppDispatch } from "@/features/movies/moviesAPI";
+import { RootState } from "@/app/store";
+
+export const cyberStream = new TomideStreams();
 
 export function Home() {
-  const [data, setData] = useState<MovieDescription[] | null>(null);
-
-  const cyberStream = new TomideStreams();
+  const dispatch: AppDispatch = useDispatch(); // Use AppDispatch type for dispatch
+  const { data, status, error } =
+    useSelector((state: RootState) => state.movies) ?? {};
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const movies = await cyberStream.getRandomMovies();
-        setData(movies);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        toast.error(JSON.stringify(error));
-      }
-    };
-    fetchData();
-  }, []);
-
+    dispatch(fetchMovies());
+  }, [dispatch]);
   const navigate = useNavigate();
 
   const handleCardClick = (imdbId: string) => {
@@ -41,62 +35,41 @@ export function Home() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center gap-4">
-      <div className="flex w-full max-w-sm items-center space-x-2">
-        <Input placeholder="movie details" />
-        <Button type="submit">Search</Button>
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {data?.map((movie) => (
-          <div className="grid gap-4" key={movie["#IMDB_ID"]}>
-            <Card
-              className=""
-              onClick={() => handleCardClick(movie["#IMDB_ID"])}
-            >
-              <CardHeader>
-                <div className="flex items-center space-x-4">
+    <div className="w-full flex flex-col items-center justify-center gap-4 p-5">
+      <SearchMoviesBar />
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        {data
+          ? data.map((movie) => (
+              <Card
+                className="cursor-pointer hover:bg-slate-100 flex flex-col justify-between"
+                key={movie["#IMDB_ID"]}
+                onClick={() => handleCardClick(movie["#IMDB_ID"])}
+              >
+                <CardHeader>
                   <img
                     src={movie["#IMG_POSTER"]}
                     alt={`${movie["#TITLE"]} poster`}
                     className="w-full rounded-md"
                   />
-                </div>
-                <CardTitle>{movie["#TITLE"]}</CardTitle>
-                <CardDescription>{movie["#YEAR"]}</CardDescription>
-              </CardHeader>
-              <CardContent className="grid gap-4">
-                <div className=" flex items-center space-x-4 rounded-md border p-4">
-                  <Star />
-                  <div className="flex-1 space-y-1">
-                    <p className="text-sm font-medium leading-none">
-                      {movie["#RANK"]}
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <div className="mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0">
-                    <span className="flex h-2 w-2 translate-y-1 rounded-full bg-sky-500" />
-                    <div className="space-y-1">
-                      <p className="text-sm font-medium leading-none">
-                        {movie["#AKA"]}
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        {movie["#ACTORS"]}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button className="w-full">
-                  <View className="mr-2 h-4 w-4" /> View more details
-                </Button>
-              </CardFooter>
-            </Card>
-          </div>
-        ))}
+                  <CardTitle>{movie["#TITLE"]}</CardTitle>
+                  <CardDescription>{movie["#YEAR"]}</CardDescription>
+                </CardHeader>
+                <CardContent className="flex flex-col justify-between">
+                  <span> {movie["#RANK"]}</span>
+                  <span>{movie["#AKA"]}</span>
+                  <span>{movie["#ACTORS"]}</span>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full">
+                    <View className="mr-2 h-4 w-4" /> View more details
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))
+          : Array.from({ length: 10 }).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))}
       </div>
-      <Counter />
     </div>
   );
 }

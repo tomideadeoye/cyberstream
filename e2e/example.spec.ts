@@ -3,7 +3,7 @@ import counterReducer, {
   decrement,
   increment,
   incrementByAmount,
-} from "../src/features/counter/counterSlice";
+} from "../src/features/movies/movieSlice";
 
 describe("counter reducer", () => {
   const initialState: CounterState = {

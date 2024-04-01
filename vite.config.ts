@@ -11,6 +11,13 @@ export default defineConfig({
   server: {
     host: true,
     strictPort: true,
+    proxy: {
+      "/api": {
+        target: "https://search.imdbot.workers.dev/",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
   },
   build: {
     outDir: "build",

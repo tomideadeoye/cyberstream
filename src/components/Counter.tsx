@@ -8,7 +8,7 @@ import {
   incrementByAmount,
   incrementIfOdd,
   selectCount,
-} from "../features/counter/counterSlice";
+} from "../features/movies/movieSlice";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 
