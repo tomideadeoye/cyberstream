@@ -1,9 +1,4 @@
-import {
-  HashRouter,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/layouts/navbar";
