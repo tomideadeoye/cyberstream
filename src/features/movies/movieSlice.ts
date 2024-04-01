@@ -23,9 +23,7 @@ const moviesSlice = createSlice({
     status: "idle",
     error: null,
   },
-  reducers: {
-    // synchronous reducers here
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchMovies.pending, (state) => {

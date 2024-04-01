@@ -21,13 +21,15 @@ import { RootState } from "@/app/store";
 export const cyberStream = new TomideStreams();
 
 export function Home() {
-  const dispatch: AppDispatch = useDispatch(); // Use AppDispatch type for dispatch
+  const dispatch: AppDispatch = useDispatch();
   const { data } = useSelector((state: RootState) => state.movies) ?? {};
 
   useEffect(() => {
     dispatch(fetchMovies());
   }, [dispatch]);
   const navigate = useNavigate();
+
+  console.log(data);
 
   const handleCardClick = (imdbId: string) => {
     navigate(`/details/${imdbId}`);
