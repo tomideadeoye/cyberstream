@@ -12,7 +12,7 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
-
+  mainWindow.webContents.openDevTools({ mode: "bottom" });
   // and load the index.html of the app.
   // win.loadFile("index.html");
   win.loadURL(
