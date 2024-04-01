@@ -22,8 +22,7 @@ export const cyberStream = new TomideStreams();
 
 export function Home() {
   const dispatch: AppDispatch = useDispatch(); // Use AppDispatch type for dispatch
-  const { data, status, error } =
-    useSelector((state: RootState) => state.movies) ?? {};
+  const { data } = useSelector((state: RootState) => state.movies) ?? {};
 
   useEffect(() => {
     dispatch(fetchMovies());

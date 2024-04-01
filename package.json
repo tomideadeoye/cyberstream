@@ -8,6 +8,7 @@
     "type": "git",
     "url": "https://github.com/tomideadeoye/cyberstream"
   },
+  "main": "electron-main.js",
   "keywords": [
     "React",
     "TypeScript",
@@ -26,14 +27,18 @@
     "test": "vitest",
     "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "preview": "vite preview",
-    "precommit": "npm run lint && npm run format"
+    "precommit": "npm run lint && npm run format",
+    "electron": "electron ."
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^1.6.8",
+    "cors": "^2.8.5",
     "cyber-stream-sdk": "^1.0.12",
+    "electron-is-dev": "^3.0.1",
+    "express": "^4.19.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.1",
@@ -61,6 +66,8 @@
     "chai": "^4.3.10",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "concurrently": "^8.2.2",
+    "electron": "^29.1.6",
     "eslint": "^8.53.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",
@@ -85,7 +92,8 @@
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
-    "vitest": "^0.34.6"
+    "vitest": "^0.34.6",
+    "wait-on": "^7.2.0"
   },
   "browserslist": {
     "production": [

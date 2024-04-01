@@ -1,4 +1,9 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  HashRouter,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Navbar from "./components/layouts/navbar";
@@ -7,7 +12,7 @@ import { Home } from "./pages/Home";
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <div>
         <Navbar />
         <Routes>
@@ -16,7 +21,7 @@ function App() {
         </Routes>
         <ToastContainer />
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 
