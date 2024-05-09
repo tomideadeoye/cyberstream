@@ -38,13 +38,16 @@ export function Details() {
   if (status === "loading") {
     return (
       <div>
-        <Skeleton className="h-[500px] w-full rounded-xl p-5" />
+        <Skeleton className="h-full w-full rounded-xl p-[10px]" />
       </div>
     );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    toast.error(
+      "We are so sorry.We couldn't find the movie you are looking for. Please pick another one below."
+    );
+    navigate("/");
   }
 
   if (!movie) {

@@ -79,7 +79,6 @@ export default function SearchMoviesBar() {
         onSearch={handleOnSearch}
         onSelect={handleOnSelect}
         formatResult={formatResult}
-        autoFocus
       />
     </div>
   );
